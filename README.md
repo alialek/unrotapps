@@ -2,72 +2,68 @@
 
 [Русский](README-ru.md)
 
-**Doomscrolling isn't your fault.**
+**Give infinite feeds an end. Go touch grass.**
 
-You open an app to answer a message, look at a friend's photo, or watch the video someone sent you. Twenty minutes later you're still there. The feed never ends, the next video starts on its own, and every time you think about closing the app, there's already something new on screen.
+![Claude Code](https://img.shields.io/badge/Claude_Code-skill-D97757)
+![Codex](https://img.shields.io/badge/Codex-skill-111111)
+![Tested](https://img.shields.io/badge/tested-Instagram_452_on_Android-E4405F)
 
-That's not weak willpower. Infinite feeds, autoplay and swipe-to-next-video are built by teams whose job is to keep you in the app a little longer. They're very good at it.
+<p align="center">
+  <img src="assets/load-more.png" width="360" alt="Instagram home feed ending with a Load more button">
+  <br>
+  <sub>Instagram home feed after unrotapps: one page, then you decide.</sub>
+</p>
 
-And you probably don't want to delete the app. Your friends are there, your chats are there, some of what you see is genuinely worth seeing. What's missing is an ending: a point where the feed stops and you decide whether to keep going.
+You open Instagram to reply to one message. Twenty minutes later you're still scrolling. That's not weak willpower: infinite feeds and swipe-to-next-video are built by teams whose job is to keep you in the app. They're good at it.
 
-unrotapps is an attempt to put that ending back. You tell an AI coding assistant what bothers you, and it changes that specific thing in the app: the feed stops after a page and shows a **Load more** button, Reels no longer swipe to the next one, a tab you open on autopilot stops working. Everything else stays as it was.
+You probably don't want to delete the app. Your friends and chats are there. What's missing is an ending. unrotapps lets your AI coding assistant remove the parts that keep you hooked and leave everything else alone.
 
-## What it is
+## Before and after
 
-unrotapps is a skill for AI coding assistants: it works in Claude Code and Codex. It contains instructions, investigation methods and notes on specific app versions. You describe the behavior you want. The assistant first checks whether the app already has a setting for it. If not, it digs into the app, makes the smallest change that works, and tests the result.
+| | Before | After |
+|---|---|---|
+| Home feed | Never ends | One page, then a **Load more** button |
+| Reels | Swipe, next video, swipe, next video | You watch the one you opened |
+| Reels tab | Opens on autopilot | Opens another app instead |
+| Feed content | Picked by the algorithm | Following or chronological mode, if the app has one |
+| Notifications | Everything | Only the types you keep |
 
-| You want | What the assistant can look into |
-|---|---|
-| A feed that ends | Replace automatic loading with a **Load more** button, including hidden preloading |
-| To watch just the video you opened | Keep the video, block the swipe, auto-next and refresh that replace it |
-| Fewer habitual taps | Disable chosen buttons, or point them to another app or your own reminder |
-| Control over what you see | Find chronological, following or favorites modes, if the app has them, and check what they really show |
-| Fewer interruptions | Turn off some notification types and keep the ones you need |
+The first three rows are tested on Instagram for Android. The last two are things the assistant can investigate, with no tested change yet (details under *What's been tested* below).
 
-Not everything is possible in every app. It depends on the app, its version, the platform and what the server decides. If the app already has a setting that does the job, the assistant uses it.
+## Quick start
+
+1. **Install.** Put the `unrotapps` folder into your assistant's skills directory:
+   - Claude Code: `~/.claude/skills/unrotapps/`
+   - Codex: `~/.codex/skills/unrotapps/`
+
+   Using both? Keep one copy and symlink it:
+
+   ```bash
+   ln -s ~/.codex/skills/unrotapps ~/.claude/skills/unrotapps
+   ```
+
+2. **Call it.** Type `/unrotapps` in Claude Code or `$unrotapps` in Codex. In Claude Code you can also just describe the task.
+
+3. **Say what bothers you.** In any language:
+
+   ```text
+   /unrotapps Light mode, Instagram on Android. Keep messages and profiles.
+   Load the next home feed page only when I tap Load more,
+   and stop Reels from swiping to the next one.
+   ```
+
+The assistant checks the app's own settings first. If they don't help, it digs into the app, makes the smallest change that works, and tests it on your phone.
 
 ## Two modes
 
-### Light: keep everything, stop the endless scroll
+**Light** keeps every feature and button. You scroll through what's loaded and tap **Load more** for the next page. You can open a specific video but can't swipe into the next one.
 
-All features and buttons stay. Only the way you continue changes:
+**Advanced** turns off the entry points to a feature you want gone. Buttons can do nothing, open another app, or show a reminder you wrote. For full blocking, the assistant also checks other ways in: links, cards, messages.
 
-- You scroll through what's loaded, then tap **Load more** to get the next page.
-- You can open a specific video, but you can't swipe into the next one.
-- Buttons go where they always went.
+Feed order, ads and notifications are separate requests. Neither mode touches them unless you ask.
 
-### Advanced: remove the entry points
-
-The buttons for a feature you want to avoid stop working. If you like, they can open another app instead, or show a reminder you wrote.
-
-To block a feature completely, the assistant also checks its other entry points. A hidden tab can still be reachable through links, cards or messages.
-
-Feed order, who shows up in the feed, ads and notifications are separate requests. Neither mode touches them unless you ask.
-
-## Getting started
-
-Copy the whole `unrotapps` folder, with its `references` and `subskills` folders, into your assistant's skills directory:
-
-| Assistant | Where to put it | How to call it |
-|---|---|---|
-| Claude Code | `~/.claude/skills/unrotapps/` (or `.claude/skills/` inside a project) | `/unrotapps`, or just describe the task and Claude picks the skill up |
-| Codex | `~/.codex/skills/unrotapps/` | `$unrotapps` |
-
-The `agents` folder holds Codex display settings; Claude Code ignores it. If you use both assistants, keep one copy and symlink it:
-
-```bash
-ln -s ~/.codex/skills/unrotapps ~/.claude/skills/unrotapps
-```
-
-Then describe the app and what you want changed. Any language works.
-
-Examples:
-
-```text
-/unrotapps Light mode for Instagram on Android.
-Keep messages and profiles working. Make the home feed load the next
-page only when I tap Load more, and stop Reels from swiping to the next one.
-```
+<details>
+<summary><b>More examples</b></summary>
 
 ```text
 /unrotapps Advanced mode. Disable the short-video tab and show
@@ -81,21 +77,42 @@ I follow in chronological order. Keep direct-message notifications
 and turn off recommendation notifications if possible.
 ```
 
-In Codex, start with `$unrotapps` instead of `/unrotapps`.
+If you know the app version, mention it, and name the screens you care about. If you don't, the assistant will help you find out.
 
-If you know the app version, mention it, and name the screens you care about. If you don't, the assistant will help you find the version and get the files it needs.
+</details>
 
-## Android
+## FAQ
 
-Android has the most detailed workflow in this skill. You'll need a computer that can run the tools, a USB cable that carries data (not just charging), and a phone with **USB debugging** turned on. Unlock the phone and confirm the debugging prompt on it.
+**Will I get banned?**
+No guarantees. Modified clients go against Instagram's terms, and some apps detect them. The modified app is installed as a separate clone with its own login, but the account is the same. Your call.
+
+**Do I need root?**
+No. USB debugging is enough. The skill tells the assistant not to root the phone or unlock the bootloader.
+
+**iPhone?**
+The detailed workflow is Android only. On iOS, web and desktop the assistant can only use settings and officially supported ways to extend an app.
+
+**What happens when the app updates?**
+The clone is a separate app, so store updates won't touch it, and it won't get new versions on its own either. A new app version needs a fresh investigation; the existing notes help but don't apply blindly.
+
+**Is my original app safe?**
+The original stays installed. App data isn't wiped to get around install errors. Passwords, PINs and fingerprints are entered only by you, on the phone.
+
+<details>
+<summary><b>Android setup</b></summary>
+
+You'll need a computer that can run the tools, a USB cable that carries data (not just charging), and a phone with **USB debugging** turned on. Unlock the phone and confirm the debugging prompt on it.
 
 You probably won't need to download an APK. The assistant can usually copy the installed app straight from your phone, including the extra files known as *split APKs*. An official copy from your phone or from the publisher is best. The skill checks where a package came from and whether its signatures match.
 
-If the change requires re-signing the app, you'll usually end up with a separate clone next to the official app. You may need to log in again in the clone, and some apps refuse to work with modified clients. To update the clone later, you'll need the same signing key. The skill leaves the original app in place and doesn't wipe app data to get around an install error.
+If the change requires re-signing the app, you'll end up with a separate clone next to the official app. You may need to log in again in the clone, and some apps refuse to work with modified clients. To update the clone later, you'll need the same signing key.
 
-Passwords, PINs and fingerprint confirmations stay on your phone. Step-by-step instructions: [Android setup, extraction and installation](references/android-device.md).
+Step-by-step instructions: [Android setup, extraction and installation](references/android-device.md).
 
-## What's been tested
+</details>
+
+<details>
+<summary><b>What's been tested</b></summary>
 
 The included [Instagram subskill](subskills/instagram-452-1-0-53-64/SKILL.md) is for **Android Instagram 452.1.0.53.64, arm64**, and checks that the input file matches that exact build.
 
@@ -103,12 +120,19 @@ Tested on a real device: manual pagination in the home feed and Explore, blocked
 
 Not done in the Instagram subskill: chronological or friends-only feed, ad removal, notification filtering. There are leads for feed modes, but no working change. The reminder option needs its own implementation and testing. Auto-next was checked only briefly and not across all playback settings.
 
-Other Instagram versions need a fresh investigation. The general methods help with that, but the skill doesn't ship a ready-made modified APK or a patcher that works on any version.
+The skill doesn't ship a ready-made modified APK or a patcher that works on any version.
 
-## What you get at the end
+</details>
+
+<details>
+<summary><b>What you get at the end of a session</b></summary>
 
 The assistant should tell you plainly what it changed, what it tested on the device, what it only confirmed by reading the code, and what is still unknown. If it built an installable app, it should tell you where the file is and whether it was installed.
 
-An app update may undo the changes. Signature checks show where a file came from, but they're not a full malware audit. Some behavior is controlled by the server and can't be changed on your phone.
+Signature checks show where a file came from, but they're not a full malware audit. Some behavior is controlled by the server and can't be changed on your phone.
 
-The goal is simple: you open the app for something you need, reach the end, and decide for yourself whether to keep going.
+</details>
+
+---
+
+The goal is simple: open the app for something you need, reach the end, and decide for yourself whether to keep going.
