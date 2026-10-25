@@ -6,7 +6,6 @@
 
 ![Claude Code](https://img.shields.io/badge/Claude_Code-skill-D97757)
 ![Codex](https://img.shields.io/badge/Codex-skill-111111)
-![Tested](https://img.shields.io/badge/tested-Instagram_452_on_Android-E4405F)
 
 <p align="center">
   <img src="assets/load-more.png" width="360" alt="Instagram home feed ending with a Load more button">
@@ -27,8 +26,6 @@ You probably don't want to delete the app. Your friends and chats are there. Wha
 | Reels tab | Opens on autopilot | Opens another app instead |
 | Feed content | Picked by the algorithm | Following or chronological mode, if the app has one |
 | Notifications | Everything | Only the types you keep |
-
-The first three rows are tested on Instagram for Android. The last two are things the assistant can investigate, with no tested change yet (details under *What's been tested* below).
 
 ## Quick start
 
@@ -108,19 +105,6 @@ You probably won't need to download an APK. The assistant can usually copy the i
 If the change requires re-signing the app, you'll end up with a separate clone next to the official app. You may need to log in again in the clone, and some apps refuse to work with modified clients. To update the clone later, you'll need the same signing key.
 
 Step-by-step instructions: [Android setup, extraction and installation](references/android-device.md).
-
-</details>
-
-<details>
-<summary><b>What's been tested</b></summary>
-
-The included [Instagram subskill](subskills/instagram-452-1-0-53-64/SKILL.md) is for **Android Instagram 452.1.0.53.64, arm64**, and checks that the input file matches that exact build.
-
-Tested on a real device: manual pagination in the home feed and Explore, blocked swipes in Reels, a tab reassigned to another app, and a **Load more** button made from Instagram's own UI components. The home feed fix held up through **50 swipes across two pages**, fast swipes included, with a manual load in between.
-
-Not done in the Instagram subskill: chronological or friends-only feed, ad removal, notification filtering. There are leads for feed modes, but no working change. The reminder option needs its own implementation and testing. Auto-next was checked only briefly and not across all playback settings.
-
-The skill doesn't ship a ready-made modified APK or a patcher that works on any version.
 
 </details>
 
