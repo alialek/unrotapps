@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unrot Apps"
+  short_description: "Give distracting apps a stopping point"
+  default_prompt: "Use $unrotapps to identify and limit distracting app mechanics while preserving the functions I need."
